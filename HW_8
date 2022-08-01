@@ -4,14 +4,23 @@
 # визначається переможець
 # Опціонально можна додати можливість запропонувати продовжувати гру (Y\N) і вести рахунок перемог.
 #
-# P.s винесіть всі функції в окремий файл і імпортуцте їх звідти для роботи
+# P.s винесіть всі функції в окремий файл і імпортуйте їх звідти для роботи
 
-import random
+from game_functions import player_input, comp_input, game_result, want_play_again
 
-player = int(input("1 - камінь, 2 - ножиці, 3 - папір. "))
-from Function import player_input
+player_wins = 0
+comp_wins = 0
 
-comand = random.randint(1, 3)
-from Function import comp_choice
-from Function import win_choice
+while True:
+    player_choice = player_input()
+    comp_choice = comp_input()
+    result = game_result(player_choice, comp_choice)
+    if result == 1:
+        player_wins += 1
+    elif result == 2:
+        comp_wins += 1
 
+    print(f"Перемоги гравців:\n\tваших перемог - {player_wins}\n\tперемог комп`ютера - {comp_wins}")
+
+    if not want_play_again():
+        break
